@@ -1,0 +1,31 @@
+{
+  "name": "grunt-dispatch",
+  "description": "copy the necessary files of package/components directory to your src/build directory",
+  "version": "0.1.0",
+  "homepage": "https://github.com/dexteryy/grunt-dispatch",
+  "author": {
+    "name": "dexteryy",
+    "email": "dexter.yy@gmail.com",
+    "url": "http://github.com/dexteryy"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/gruntjs/grunt-contrib-requirejs/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": "*"
+  },
+  "devDependencies": {
+  },
+  "dependencies": {
+    "grunt": "~0.4.0"
+  },
+  "keywords": [
+    "gruntplugin",
+    "ozjs",
+    "package",
+    "bower"
+  ]
+}
