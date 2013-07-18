@@ -7,26 +7,41 @@ module.exports = function(grunt) {
         var opt = this.options();
         var pkgname = this.target;
         var data = this.data.use;
-        var cwd = path.join(opt.directory, pkgname);
+        var cwd = path.join(grunt.config.process(opt.directory), pkgname);
         if (Array.isArray(data)) {
             data.forEach(function(files){
-                var true_cwd = path.join(cwd, files.cwd || '');
-                var src = grunt.file.expand({ 
+                var dest = grunt.config.process(files.dest);
+                var src_cwd = grunt.config.process(files.cwd || "");
+                var true_cwd = path.join(cwd, src_cwd);
+                var src = files.src;
+                if (Array.isArray(src)) {
+                    src = src.map(function(src){
+                        return grunt.config.process(src);
+                    });
+                }
+                src = grunt.file.expand({ 
                     cwd: true_cwd
-                }, files.src);
+                }, src);
                 src.forEach(function(src){
                     var true_src = path.join(true_cwd, src);
                     if (grunt.file.isFile(true_src)) {
-                        grunt.log.writeln('Copying ' + true_src.cyan + ' -> ' + files.dest.cyan);
-                        grunt.file.copy(true_src, path.join(files.dest, src.replace(files.cwd, '')));
+                        grunt.log.writeln('Copying ' + true_src.cyan + ' -> ' + dest.cyan);
+                        grunt.file.copy(true_src, path.join(dest, src.replace(src_cwd, '')));
                     }
                 });
             });
         } else {
             Object.keys(data).forEach(function(dest){
-                var src = grunt.file.expand({ 
+                var src = this[dest];
+                dest = grunt.config.process(dest);
+                if (Array.isArray(src)) {
+                    src = src.map(function(src){
+                        return grunt.config.process(src);
+                    });
+                }
+                src = grunt.file.expand({ 
                     cwd: cwd
-                }, this[dest]);
+                }, src);
                 src.forEach(function(src){
                     var true_src = path.join(cwd, src);
                     if (grunt.file.isFile(true_src)) {
