@@ -25,7 +25,7 @@ module.exports = function(grunt) {
                 src.forEach(function(src){
                     var true_src = path.join(true_cwd, src);
                     if (grunt.file.isFile(true_src)) {
-                        grunt.log.writeln('Copying ' + true_src.cyan + ' -> ' + dest.cyan);
+                        grunt.verbose.writeln('Copying ' + true_src.cyan + ' -> ' + dest.cyan);
                         grunt.file.copy(true_src, path.join(dest, src.replace(src_cwd, '')));
                     }
                 });
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
                 src.forEach(function(src){
                     var true_src = path.join(cwd, src);
                     if (grunt.file.isFile(true_src)) {
-                        grunt.log.writeln('Copying ' + true_src.cyan + ' -> ' + dest.cyan);
+                        grunt.verbose.writeln('Copying ' + true_src.cyan + ' -> ' + dest.cyan);
                         grunt.file.copy(true_src, path.join(dest, src));
                     }
                 });
