@@ -19,7 +19,7 @@ module.exports = function(grunt) {
                         return grunt.config.process(src);
                     });
                 }
-                src = grunt.file.expand({ 
+                src = grunt.file.expand({
                     cwd: true_cwd
                 }, src);
                 src.forEach(function(src){
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
                         return grunt.config.process(src);
                     });
                 }
-                src = grunt.file.expand({ 
+                src = grunt.file.expand({
                     cwd: cwd
                 }, src);
                 src.forEach(function(src){
@@ -60,6 +60,4 @@ module.exports = function(grunt) {
             return 'file';
         }
     }
-    
-
 };
