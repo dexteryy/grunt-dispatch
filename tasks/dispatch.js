@@ -8,6 +8,10 @@ module.exports = function(grunt) {
         var pkgname = this.target;
         var data = this.data.use;
         var cwd = path.join(grunt.config.process(opt.directory), pkgname);
+        var tally = {
+          files: 0
+        };
+
         if (Array.isArray(data)) {
             data.forEach(function(files){
                 var dest = grunt.config.process(files.dest);
@@ -19,14 +23,15 @@ module.exports = function(grunt) {
                         return grunt.config.process(src);
                     });
                 }
-                src = grunt.file.expand({ 
+                src = grunt.file.expand({
                     cwd: true_cwd
                 }, src);
                 src.forEach(function(src){
                     var true_src = path.join(true_cwd, src);
                     if (grunt.file.isFile(true_src)) {
-                        grunt.log.writeln('Copying ' + true_src.cyan + ' -> ' + dest.cyan);
+                        grunt.verbose.writeln('Copying ' + true_src.cyan + ' -> ' + dest.cyan);
                         grunt.file.copy(true_src, path.join(dest, src.replace(src_cwd, '')));
+                        tally.files++;
                     }
                 });
             });
@@ -39,17 +44,21 @@ module.exports = function(grunt) {
                         return grunt.config.process(src);
                     });
                 }
-                src = grunt.file.expand({ 
+                src = grunt.file.expand({
                     cwd: cwd
                 }, src);
                 src.forEach(function(src){
                     var true_src = path.join(cwd, src);
                     if (grunt.file.isFile(true_src)) {
-                        grunt.log.writeln('Copying ' + true_src.cyan + ' -> ' + dest.cyan);
+                        grunt.verbose.writeln('Copying ' + true_src.cyan + ' -> ' + dest.cyan);
                         grunt.file.copy(true_src, path.join(dest, src));
+                        tally.files++;
                     }
                 });
             }, data);
+        }
+        if (tally.files) {
+            grunt.log.write('Copied ' + tally.files.toString().cyan + ' files');
         }
     });
 
@@ -60,6 +69,4 @@ module.exports = function(grunt) {
             return 'file';
         }
     }
-    
-
 };
