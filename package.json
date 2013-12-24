@@ -1,7 +1,7 @@
 {
   "name": "grunt-dispatch",
   "description": "copy the necessary files of package/components directory to your src/build directory",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "homepage": "https://github.com/dexteryy/grunt-dispatch",
   "repository": {
     "type": "git",

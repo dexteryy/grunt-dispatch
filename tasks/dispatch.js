@@ -9,9 +9,8 @@ module.exports = function(grunt) {
         var data = this.data.use;
         var cwd = path.join(grunt.config.process(opt.directory), pkgname);
         var tally = {
-          files: 0
+            files: 0
         };
-
         if (Array.isArray(data)) {
             data.forEach(function(files){
                 var dest = grunt.config.process(files.dest);
@@ -69,4 +68,5 @@ module.exports = function(grunt) {
             return 'file';
         }
     }
+
 };
