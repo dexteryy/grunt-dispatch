@@ -28,8 +28,13 @@ module.exports = function(grunt) {
                 src.forEach(function(src){
                     var true_src = path.join(true_cwd, src);
                     if (grunt.file.isFile(true_src)) {
-                        grunt.verbose.writeln('Copying ' + true_src.cyan + ' -> ' + dest.cyan);
-                        grunt.file.copy(true_src, path.join(dest, src.replace(src_cwd, '')));
+                        grunt.verbose.writeln('Copying ' + true_src.cyan 
+                            + ' -> ' + dest.cyan);
+                        grunt.file.copy(true_src, 
+                            path.join(dest, 
+                                src.replace(new RegExp('^' + src_cwd), '')
+                            )
+                        );
                         tally.files++;
                     }
                 });
@@ -49,7 +54,8 @@ module.exports = function(grunt) {
                 src.forEach(function(src){
                     var true_src = path.join(cwd, src);
                     if (grunt.file.isFile(true_src)) {
-                        grunt.verbose.writeln('Copying ' + true_src.cyan + ' -> ' + dest.cyan);
+                        grunt.verbose.writeln('Copying ' + true_src.cyan 
+                            + ' -> ' + dest.cyan);
                         grunt.file.copy(true_src, path.join(dest, src));
                         tally.files++;
                     }
@@ -57,16 +63,9 @@ module.exports = function(grunt) {
             }, data);
         }
         if (tally.files) {
-            grunt.log.write('Copied ' + tally.files.toString().cyan + ' files');
+            grunt.log.writeln('Copied ' 
+                + tally.files.toString().cyan + ' files');
         }
     });
-
-    function detect_type(path) {
-        if (grunt.util._.endsWith(path, '/')) {
-            return 'directory';
-        } else {
-            return 'file';
-        }
-    }
 
 };
